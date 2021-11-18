@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<base:BasePage x:TypeArguments="viewModels:MainViewModel, x:String" xmlns="http://xamarin.com/schemas/2014/forms"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:base="clr-namespace:InfiniteGallery.Views.Base;assembly=InfiniteGallery"
+               xmlns:viewModels="clr-namespace:InfiniteGallery.ViewModels;assembly=InfiniteGallery"
+               xmlns:controls="clr-namespace:InfiniteGallery.Controls;assembly=InfiniteGallery"
+               xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+               xmlns:data="clr-namespace:InfiniteGallery.Models.Data;assembly=InfiniteGallery"
+               x:Class="InfiniteGallery.Views.MainPage"
+               x:DataType="viewModels:MainViewModel"
+               BackgroundColor="White">
+
+    <Grid x:Name="ContentGrid"
+          BackgroundColor="White">
+
+        <controls:ExtendedListView
+            BackgroundColor="White"
+            ItemsSource="{Binding Photos}"
+            LoadMoreCommand="{Binding LoadPhotosCommand}"
+            HasUnevenRows="True"
+            SeparatorVisibility="None">
+
+            <controls:ExtendedListView.ItemTemplate>
+                <DataTemplate x:DataType="data:PhotoDTO">
+                    <ViewCell>
+                        <Grid Padding="20">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <forms:CachedImage Grid.Row="0"
+                                               Source="{Binding DownloadUrl}"
+                                               Aspect="AspectFit"
+                                               DownsampleToViewSize="True"/>
+                            <Label Grid.Row="1"
+                                   Text="{Binding Author}"
+                                   TextColor="Black"/>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </controls:ExtendedListView.ItemTemplate>
+
+        </controls:ExtendedListView>
+    </Grid>
+
+</base:BasePage>
